@@ -1,15 +1,15 @@
 import tkinter as tk
 import requests
-
+import json
 
 def search_movie():
     title = movie_entry.get()
     # Replace "YOUR_API_KEY" with your actual OMDb API key
-    url = f"https://www.imdb.com/{title}"
+    url = f"http://www.omdbapi.com/?apikey=YOUR_API_KEY&s={title}"
 
     try:
         response = requests.get(url)
-        data = response.json()
+        data = json.loads(response.text)  # Use the json module to parse the JSON response
         if data["Response"] == "True":
             movies_listbox.delete(0, tk.END)
             for movie in data["Search"]:
